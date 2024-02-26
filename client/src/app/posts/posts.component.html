@@ -1,0 +1,26 @@
+<!-- post form -->
+<h1>Create Post</h1>
+<form>
+  <input type="text" name="post" [(ngModel)]="postPayload.title">
+  <button type="button" (click)="onSubmit()">Submit</button>
+</form>
+<!-- posts list -->
+<hr>
+<h1>Posts</h1>
+<div style="display: flex; justify-content: space-between;">
+  <div *ngFor="let post of posts" style="padding: 20px; border: 1px solid black;">
+    <h3 style="margin-top: 0px;">{{post.title}}</h3>
+    <div>{{post.comments.length}} comments</div>
+    <ul>
+      <li *ngFor="let comment of post.comments">
+        <span *ngIf="comment.status === 'approved'">{{comment.content}}</span>
+        <span *ngIf="comment.status === 'pending'">Awaiting moderation</span>
+        <span *ngIf="comment.status === 'rejected'">Comment rejected</span>
+      </li>
+    </ul>
+    <form>
+      <input type="text" name="comment" [(ngModel)]="post.commentInputValue">
+      <button type="button" (click)="onSubmitComment(post)">Submit</button>
+    </form>
+  </div>
+</div>
